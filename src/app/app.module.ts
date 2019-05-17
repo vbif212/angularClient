@@ -9,13 +9,15 @@ import {RouterModule} from '@angular/router';
 import {AppService} from './app.service';
 import {HttpClientModule} from '@angular/common/http';
 import { IssueComponent } from './issue/issue.component';
+import { IssuesComponent } from './issues/issues.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    IssueComponent
+    IssueComponent,
+    IssuesComponent
   ],
   imports: [
     BrowserModule,

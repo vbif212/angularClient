@@ -9,24 +9,13 @@ import {AppService} from '../app.service';
 })
 export class IssueComponent {
 
-  public issue = new Issue('test', 'name');
+  public currentIssue: Issue;
   private url = 'http://localhost:8085/spring-security-oauth-resource/issues';
 
   constructor(private service: AppService) {
+
   }
 
-  createIssue() {
-    this.service.createResource(this.url, this.issue)
-      .subscribe(
-        data => this.issue = data,
-        error => this.issue.name = 'Error');
-  }
 
-  getIssues() {
-    this.service.getAllResources(this.url)
-      .subscribe(
-        data => console.log(data),
-        error => console.log(error)
-      );
-  }
+
 }

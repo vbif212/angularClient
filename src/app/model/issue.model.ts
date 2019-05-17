@@ -6,7 +6,7 @@ export class IssueStatus {
 
 export class Issue {
   id: number;
-  timeStamp: Date;
+  timestamp: Date;
   status: string;
   description: string;
   name: string;

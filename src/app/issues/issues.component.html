@@ -1,0 +1,19 @@
+<h2>Issues</h2>
+<div>
+  <label>Issue name:
+    <input #issueName />
+  </label>
+  <label>Issue description:
+    <input #issueDescription />
+  </label>
+  <button (click)="createIssue(issueName.value, issueDescription.value); issueName.value=''; issueDescription.value=''">
+    add
+  </button>
+</div>
+<ul>
+  <li *ngFor="let issues of issues">
+    <span>Name: {{issues.name}}</span>
+    <br>
+    <span>Description: {{issues.description}}</span>
+  </li>
+</ul>
