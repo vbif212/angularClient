@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Issue} from '../model/issue.model';
 import {AppService} from '../app.service';
+import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-issues',
@@ -11,15 +12,19 @@ export class IssuesComponent implements OnInit {
 
   public issues: Issue[];
   private url = 'http://localhost:8085/spring-security-oauth-resource/issues';
+  addForm = this.fb.group({
+    name: ['', Validators.required],
+    description: ['', Validators.required]
+  });
 
-  constructor(private service: AppService) {
+  constructor(private service: AppService, private fb: FormBuilder) {
   }
 
   getIssues() {
     this.service.getAllResources(this.url)
       .subscribe(
         data => this.issues = data,
-        error => alert(error)
+        error => console.log(error)
       );
   }
 

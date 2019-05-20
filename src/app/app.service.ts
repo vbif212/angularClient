@@ -5,6 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {Cookie} from 'ng2-cookies';
 import {catchError} from 'rxjs/operators';
 import {Issue} from './model/issue.model';
+import {Comment} from './model/comment.model';
 
 @Injectable()
 export class AppService {
@@ -53,6 +54,8 @@ export class AppService {
     return this.http.get(resourceUrl, options)
       .pipe(
         catchError(err => {
+          console.log('getResource');
+          console.log(err);
           return [];
         })
       );
@@ -65,6 +68,11 @@ export class AppService {
     const options = ({headers});
     return this.http.post(resourceUrl, resource, options)
       .pipe(catchError(err => {
+          if (err.status === 409) {
+            alert('Issue already exist!');
+          }
+          console.log('createResource');
+          console.log(err);
           return [];
         })
       );
@@ -77,6 +85,36 @@ export class AppService {
     const options = ({headers});
     return this.http.get(resourceUrl, options)
       .pipe(catchError(err => {
+          console.log('getAllResources');
+          console.log(err);
+          return [];
+        })
+      );
+  }
+
+  deleteResource(resourceUrl): Observable<{}> {
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + Cookie.get('access_token')
+    });
+    const options = ({headers});
+    return this.http.delete(resourceUrl, options)
+      .pipe(catchError(err => {
+          console.log('deleteResources');
+          console.log(err);
+          return Observable.throw(err);
+        })
+      );
+  }
+
+  addComment(resourceUrl, resource: Comment): Observable<Comment> {
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + Cookie.get('access_token')
+    });
+    const options = ({headers});
+    return this.http.post(resourceUrl, resource, options)
+      .pipe(catchError(err => {
+          console.log('addComment');
+          console.log(err);
           return [];
         })
       );

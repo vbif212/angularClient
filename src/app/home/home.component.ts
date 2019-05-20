@@ -19,5 +19,4 @@ export class HomeComponent implements OnInit {
   logout() {
     this.service.logout();
   }
-
 }

@@ -4,12 +4,12 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
-import {FormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppService} from './app.service';
 import {HttpClientModule} from '@angular/common/http';
-import { IssueComponent } from './issue/issue.component';
-import { IssuesComponent } from './issues/issues.component';
+import {IssueComponent} from './issue/issue.component';
+import {IssuesComponent} from './issues/issues.component';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -23,9 +23,8 @@ import { IssuesComponent } from './issues/issues.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      {path: '', component: HomeComponent},
-      {path: 'login', component: LoginComponent}])
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]

@@ -1,19 +1,44 @@
-<h2>Issues</h2>
-<div>
-  <label>Issue name:
-    <input #issueName />
-  </label>
-  <label>Issue description:
-    <input #issueDescription />
-  </label>
-  <button (click)="createIssue(issueName.value, issueDescription.value); issueName.value=''; issueDescription.value=''">
-    add
-  </button>
+<h2>Add new issue</h2>
+<form [formGroup]="addForm" (ngSubmit)="createIssue(issueName.value, issueDescription.value)">
+  <div class="row">
+    <div class="col-4">
+      <div class="form-row">
+        <input #issueName class="form-control" placeholder="Name" formControlName="name" required/>
+      </div>
+      <div class="form-row">
+        <div class="col-6 mt-2">
+          <input [disabled]="!addForm.valid" type="submit" value="Add" class="form-control btn btn-success"/>
+        </div>
+        <div class="col-6 mt-2">
+          <input type="button" value="Clear" (click)="addForm.reset()" class="form-control btn btn-warning">
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+    <textarea #issueDescription class="form-control h-100" style="resize: none" placeholder="Description"
+              formControlName="description"
+              required>
+    </textarea>
+    </div>
+  </div>
+</form>
+<h2>Issues: {{issues?.length}}</h2>
+<div class="list-group" *ngIf="issues?.length != 0; else elseBlock">
+  <a class="list-group-item list-group-item-action btn-outline-dark" *ngFor="let issue of issues"
+     routerLink="/issues/{{issue.id}}">
+    <div class="row">
+      <div class="col-6">
+        {{issue.name}}
+      </div>
+      <div class="col-3">
+        {{issue.status}}
+      </div>
+      <div class="col-3">
+        {{issue.timestamp | date:'short'}}
+      </div>
+    </div>
+  </a>
 </div>
-<ul>
-  <li *ngFor="let issues of issues">
-    <span>Name: {{issues.name}}</span>
-    <br>
-    <span>Description: {{issues.description}}</span>
-  </li>
-</ul>
+<ng-template #elseBlock>
+  Add first issue!
+</ng-template>

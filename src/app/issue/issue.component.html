@@ -1,8 +1,66 @@
-<h1>Issue Details</h1>
-<label>ID : </label> <span>{{issue.id}} | </span>
-<label>Name : </label> <span>{{issue.name}} | </span>
-<label>Time : </label> <span>{{issue.timestamp}} | </span>
-<label>Status : </label> <span>{{issue.status}} | </span>
-<label>Description : </label> <span>{{issue.description}} </span>
-<button (click)="createIssue()" type="submit">New Issue</button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Issue Tracker</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1"
+          aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbar1">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" (click)="goBack()" href="#">Back</a>
+      </li>
+    </ul>
+    <a (click)="deleteIssue()" class="btn btn-outline-danger pl-10" href="#">Delete</a>
+    <a (click)="logout()" class="btn btn-outline-info" href="#">Log out</a>
+  </div>
+</nav>
+<div class="container">
+  <h2>{{issue?.name}}</h2>
+  <p><b>Status:</b> {{issue?.status}}</p>
+  <p><b>Start date:</b> {{issue?.timestamp | date:'short'}}</p>
+  <p class="lead">{{issue?.description}}</p>
+  <h4>Comments: {{issue?.comments.length}}</h4>
+  <ul *ngIf="issue?.comments.length !== 0" class="list-group list-group-flush">
+    <li *ngFor="let comment of issue?.comments" class="list-group-item">
+      <small>{{comment.timestamp | date: 'short'}}</small>
+      <br>
+      <small>Status changed to {{comment.status}}</small>
+      <p class="lead">{{comment.message}}</p>
+    </li>
+  </ul>
+  <h5>New comment: </h5>
+  <form [formGroup]="addCommentForm" (ngSubmit)="addComment(status.value, message.value)">
+    <div class="row">
+      <div class="col-4">
+        <div class="form-row">
+          <select #status class="form-control" formControlName="status" required>
+            <option value="ONGOING">Ongoing</option>
+            <option value="READY">Ready</option>
+          </select>
+        </div>
+        <div class="form-row mt-2">
+          <div class="col-6">
+            <input [disabled]="!addCommentForm.valid" type="submit" value="Add" class="form-control btn btn-success"/>
+          </div>
+          <div class="col-6">
+            <input type="button" value="Clear" (click)="addCommentForm.reset()" class="form-control btn btn-warning">
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <textarea #message class="form-control h-100" placeholder="Message" style="resize: none" formControlName="message" required>
+        </textarea>
+      </div>
+    </div>
+
+    <br>
+    <label>
+
+    </label>
+    <label>
+
+    </label>
+  </form>
+</div>
 

@@ -1,16 +1,13 @@
-export class IssueStatus {
-  static ADDED = 'ADDED';
-  static READY = 'READY';
-  static ONGOING = 'ONGOING';
-}
+import {Status} from './status.model';
+import {Comment} from './comment.model';
 
 export class Issue {
   id: number;
   timestamp: Date;
-  status: string;
+  status: Status;
   description: string;
   name: string;
-  messages: string[];
+  comments: Comment[];
 
   constructor(description?: string, name?: string) {
     this.description = description;
